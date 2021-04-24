@@ -1,0 +1,12 @@
+{
+    "name": "qh4/token",
+    "description": "Token模块",
+    "authors": [
+        {
+            "name": "hyunsu",
+            "email": "hyunsu@foxmail.com"
+        }
+    ],
+    "require": {},
+    "minimum-stability": "dev"
+}
