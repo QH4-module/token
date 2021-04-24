@@ -3,11 +3,11 @@
 <span style="color: #f03c15"> 注意：关联信息中必须有 user_id 字段保存登录用户的ID.作为一种约定，后续所有的服务层获取用户ID都将取该字段 </span>
 
 
-###`JSON web token` 方式
+### `JSON web token` 方式
 
 使用这种方式,需要一份密钥对,关于密钥对的生成,参见 `JWT` 类的 `encode` 方法的注释
 
-###`自定义token` 方式
+### `自定义token` 方式
 
 使用这种方式,支持 MySQL 存储或者 Redis 存储
 
