@@ -21,29 +21,29 @@ use qh4module\token\external\ExtToken;
 use qh4module\token\HpToken;
 use qttx\exceptions\InvalidArgumentException;
 use qttx\helper\StringHelper;
-use qttx\web\Model;
+use qttx\web\ServiceModel;
 
 /**
  * Class GenerateToken
  * 生成自定义的token
  * @package qh4module\token\models
  */
-class GenerateToken extends Model
+class GenerateToken extends ServiceModel
 {
     /**
      * @var string 接收参数,旧的token
      */
-    public $oldToken;
+    public $old_token;
 
     /**
      * @var string 接收参数,设备编号
      */
-    public $deviceId = '';
+    public $device_id = '';
 
     /**
      * @var string 接收参数,设备类型
      */
-    public $deviceType = '';
+    public $device_type = '';
 
 
     /**
@@ -62,9 +62,9 @@ class GenerateToken extends Model
     public function rules()
     {
         return [
-            [['oldToken'], 'string', ['max' => 64]],
-            [['deviceId'], 'string', ['max' => 200]],
-            [['deviceType'], 'string', ['max' => 20]],
+            [['old_token'], 'string', ['max' => 64]],
+            [['device_id'], 'string', ['max' => 200]],
+            [['device_type'], 'string', ['max' => 20]],
         ];
     }
 
@@ -75,9 +75,9 @@ class GenerateToken extends Model
     {
         return [
             'zh_cn' => [
-                'oldToken' => '旧Token',
-                'deviceId' => '设备编号',
-                'deviceType' => '设备类型',
+                'old_token' => '旧Token',
+                'device_id' => '设备编号',
+                'device_type' => '设备类型',
             ]
         ];
     }
@@ -85,7 +85,6 @@ class GenerateToken extends Model
 
     public function run()
     {
-
         $resp = [
             'token' => $this->generateNewToken(),
             'is_login' => 0,
@@ -94,16 +93,16 @@ class GenerateToken extends Model
             'expiration_time' => time() + $this->external->effectiveTime,
         ];
 
-        if ($this->oldToken) {
+        if ($this->old_token) {
 
-            $result_old = HpToken::getTokenInfo($this->oldToken, null, null, true);
+            $result_old = HpToken::getTokenInfo($this->old_token, null, null, true);
 
             if ($result_old) {
 
-                HpToken::setTokenInfo(['del_time' => time()],$this->oldToken);
+                HpToken::setTokenInfo(['del_time' => time()],$this->old_token);
 
-                if ($result_old['device_id'] == $this->deviceId &&
-                    $result_old['device_type'] == $this->deviceType &&
+                if ($result_old['device_id'] == $this->device_id &&
+                    $result_old['device_type'] == $this->device_type &&
                     $result_old['is_logout'] == 0 &&
                     (
                     $result_old['expiration_time'] > time() ||
@@ -141,9 +140,9 @@ class GenerateToken extends Model
             'is_login' => $ary['is_login'],
             'is_logout' => 0,
             'user_id' => isset($ary['user_id']) ? $ary['user_id'] : 0,
-            'device_type' => $this->deviceType,
-            'device_id' => $this->deviceId,
-            'old_token' => $this->oldToken,
+            'device_type' => $this->device_type,
+            'device_id' => $this->device_id,
+            'old_token' => $this->old_token,
             'del_time' => 0,
         ];
 

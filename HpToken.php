@@ -35,7 +35,7 @@ class HpToken
     }
 
     /**
-     * 获取token的信息,同一个请求该方法反复调用并不会增加开销
+     * 获取自定义token的信息,同一个请求该方法反复调用并不会增加开销
      * @param string $token 默认获取当前请求的token信息
      * @param ExtToken|null $ext
      * @param bool $refresh 设置为true,则舍弃缓存,从源获取
@@ -84,7 +84,7 @@ class HpToken
     }
 
     /**
-     * 设置token信息
+     * 设置自定义token信息
      * @param $fields
      * @param $token
      * @param ExtToken|null $ext
